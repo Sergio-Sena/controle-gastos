@@ -1,0 +1,563 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    color: #ffffff;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    background: linear-gradient(45deg, #00d4ff, #5a67d8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.balance {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #00d4ff;
+}
+
+.nav-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.tab-btn {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    padding: 15px 30px;
+    margin: 0 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.tab-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.tab-btn.active {
+    background: linear-gradient(45deg, #00d4ff, #5a67d8);
+    color: white;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 25px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.card h3 {
+    margin-bottom: 20px;
+    color: #00d4ff;
+    font-size: 1.3rem;
+}
+
+.stats {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat:last-child {
+    border-bottom: none;
+}
+
+.label {
+    font-weight: 500;
+}
+
+.value {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.positive {
+    color: #4ade80;
+}
+
+.negative {
+    color: #f87171;
+}
+
+.form-section {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 30px;
+    backdrop-filter: blur(10px);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #00d4ff;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-size: 1rem;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #00d4ff;
+    box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.2);
+}
+
+#tipo option[value="receita"] {
+    background-color: #065f46;
+    color: #4ade80;
+}
+
+#tipo option[value="despesa"] {
+    background-color: #7f1d1d;
+    color: #f87171;
+}
+
+#tipo {
+    color: #ffffff;
+}
+
+#tipo:focus {
+    color: #ffffff;
+}
+
+#categoria {
+    background-color: #000000;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+#categoria option {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+#recorrente-group {
+    background: rgba(255, 165, 0, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #ffa500;
+}
+
+#recorrente-group label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    color: #ffa500;
+    font-weight: bold;
+}
+
+#recorrente {
+    width: auto;
+    margin: 0;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #00d4ff, #5a67d8);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: transform 0.2s ease;
+    margin-right: 10px;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: linear-gradient(45deg, #6c757d, #495057);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: transform 0.2s ease;
+}
+
+.btn-secondary:hover {
+    transform: translateY(-2px);
+}
+
+.btn-small {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    margin-left: 5px;
+    border-radius: 6px;
+}
+
+.btn-edit {
+    background: linear-gradient(45deg, #fbbf24, #f59e0b);
+}
+
+.btn-delete {
+    background: linear-gradient(45deg, #ef4444, #dc2626);
+}
+
+.reserva-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.reserva-input {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.reserva-input input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+.reserva-display, .reserva-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(45deg, #4ade80, #22c55e);
+    width: 0%;
+    transition: width 0.3s ease;
+    border-radius: 10px;
+}
+
+.lancamentos-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.lancamento-item {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 4px solid;
+}
+
+.lancamento-item.receita {
+    border-left-color: #4ade80;
+}
+
+.lancamento-item.despesa {
+    border-left-color: #f87171;
+}
+
+.lancamento-item.pago {
+    opacity: 0.6;
+    background: rgba(74, 222, 128, 0.1);
+}
+
+.lancamento-item.pago .lancamento-info h4 {
+    text-decoration: line-through;
+    color: #4ade80;
+}
+
+.custom-checkbox {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.custom-checkbox:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.custom-checkbox.checked {
+    background: #4ade80;
+    border-color: #4ade80;
+}
+
+.custom-checkbox.checked::after {
+    content: '✓';
+    position: absolute;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.lancamento-info h4 {
+    margin-bottom: 5px;
+}
+
+.lancamento-info small {
+    color: #a0a0a0;
+}
+
+.lancamento-valor {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.empty-state {
+    text-align: center;
+    color: #a0a0a0;
+    padding: 40px;
+    font-style: italic;
+}
+
+.filter-section {
+    margin-bottom: 20px;
+}
+
+.filter-section {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.filter-section select {
+    padding: 10px;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    min-width: 150px;
+}
+
+.filter-section select option {
+    background: #1a1a2e;
+    color: #ffffff;
+}
+
+.calculator {
+    max-width: 400px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 25px;
+    backdrop-filter: blur(10px);
+}
+
+.calculator-display {
+    margin-bottom: 20px;
+}
+
+.calculator-display input {
+    width: 100%;
+    height: 80px;
+    font-size: 2rem;
+    text-align: right;
+    background: rgba(0, 0, 0, 0.3);
+    border: none;
+    border-radius: 10px;
+    color: #ffffff;
+    padding: 0 20px;
+}
+
+.calculator-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.btn-calc {
+    height: 60px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+.btn-calc:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.btn-calc.operator {
+    background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+}
+
+.btn-calc.equals {
+    background: linear-gradient(45deg, #00d4ff, #5a67d8);
+    grid-row: span 2;
+}
+
+.btn-calc.clear {
+    background: linear-gradient(45deg, #ff6b6b, #c44569);
+}
+
+.btn-calc.zero {
+    grid-column: span 2;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .balance {
+        font-size: 1.2rem;
+    }
+    
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .nav-tabs {
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 5px;
+    }
+    
+    .tab-btn {
+        margin: 0 2px;
+        padding: 10px 15px;
+        font-size: 0.9rem;
+        white-space: nowrap;
+    }
+    
+    .filter-section {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .filter-section select {
+        min-width: 100%;
+        font-size: 16px;
+    }
+    
+    .form-group input,
+    .form-group select {
+        font-size: 16px;
+    }
+    
+    .calculator {
+        max-width: 100%;
+        padding: 15px;
+    }
+    
+    .calculator-buttons {
+        gap: 8px;
+    }
+    
+    .btn-calc {
+        height: 50px;
+        font-size: 1.1rem;
+    }
+    
+    .lancamento-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .lancamento-item > div:last-child {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
