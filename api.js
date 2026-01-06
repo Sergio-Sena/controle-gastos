@@ -6,29 +6,31 @@ class FinancasAPI {
         this.autoSync = localStorage.getItem('autoSync') === 'true';
     }
 
-    async salvarDados(lancamentos, reserva) {
+    async salvarDados(lancamentos, reserva, trades = []) {
         // Sempre salvar no localStorage
         localStorage.setItem('lancamentos', JSON.stringify(lancamentos));
         localStorage.setItem('reservaEmergencia', reserva.toString());
+        localStorage.setItem('trades', JSON.stringify(trades));
         localStorage.setItem('ultimaAtualizacao', new Date().toISOString());
         
         // Criar link de download para backup
-        this.criarBackupDownload(lancamentos, reserva);
+        this.criarBackupDownload(lancamentos, reserva, trades);
         
         // Sincronização automática se configurada
         if (this.autoSync && this.token) {
-            await this.sincronizarNuvem(lancamentos, reserva);
+            await this.sincronizarNuvem(lancamentos, reserva, trades);
         }
         
         return true;
     }
 
-    criarBackupDownload(lancamentos, reserva) {
+    criarBackupDownload(lancamentos, reserva, trades = []) {
         const dados = {
             lancamentos: lancamentos,
             reservaEmergencia: reserva,
+            trades: trades,
             ultimaAtualizacao: new Date().toISOString(),
-            versao: '1.0'
+            versao: '1.1'
         };
         
         const blob = new Blob([JSON.stringify(dados, null, 2)], {type: 'application/json'});
@@ -46,11 +48,12 @@ class FinancasAPI {
         // Sempre carregar do localStorage primeiro
         const dadosLocal = {
             lancamentos: JSON.parse(localStorage.getItem('lancamentos')) || [],
-            reservaEmergencia: parseFloat(localStorage.getItem('reservaEmergencia')) || 0
+            reservaEmergencia: parseFloat(localStorage.getItem('reservaEmergencia')) || 0,
+            trades: JSON.parse(localStorage.getItem('trades')) || []
         };
         
         // Se tem dados locais, usar eles
-        if (dadosLocal.lancamentos.length > 0 || dadosLocal.reservaEmergencia > 0) {
+        if (dadosLocal.lancamentos.length > 0 || dadosLocal.reservaEmergencia > 0 || dadosLocal.trades.length > 0) {
             return dadosLocal;
         }
         
@@ -58,9 +61,10 @@ class FinancasAPI {
         if (this.autoSync && this.gistId && this.token) {
             try {
                 const dadosNuvem = await this.carregarDaNuvem();
-                if (dadosNuvem && (dadosNuvem.lancamentos.length > 0 || dadosNuvem.reservaEmergencia > 0)) {
+                if (dadosNuvem && (dadosNuvem.lancamentos.length > 0 || dadosNuvem.reservaEmergencia > 0 || (dadosNuvem.trades && dadosNuvem.trades.length > 0))) {
                     localStorage.setItem('lancamentos', JSON.stringify(dadosNuvem.lancamentos));
                     localStorage.setItem('reservaEmergencia', dadosNuvem.reservaEmergencia.toString());
+                    localStorage.setItem('trades', JSON.stringify(dadosNuvem.trades || []));
                     return dadosNuvem;
                 }
             } catch (error) {
@@ -71,12 +75,13 @@ class FinancasAPI {
         return dadosLocal;
     }
 
-    async sincronizarNuvem(lancamentos, reserva) {
+    async sincronizarNuvem(lancamentos, reserva, trades = []) {
         const dados = {
             lancamentos: lancamentos,
             reservaEmergencia: reserva,
+            trades: trades,
             ultimaAtualizacao: new Date().toISOString(),
-            versao: '1.0'
+            versao: '1.1'
         };
         
         try {

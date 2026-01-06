@@ -22,6 +22,7 @@
         <nav class="nav-tabs">
             <button class="tab-btn active" onclick="showTab('dashboard')">Dashboard</button>
             <button class="tab-btn" onclick="showTab('lancamentos')">Lançamentos</button>
+            <button class="tab-btn" onclick="showTab('dividas')">Dívidas</button>
             <button class="tab-btn" onclick="showTab('calculadora')">Calculadora</button>
         </nav>
 
@@ -154,6 +155,156 @@
                 </div>
                 <div id="lista-lancamentos" class="lancamentos-list">
                     <p class="empty-state">Nenhum lançamento encontrado</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dívidas Tab -->
+        <div id="dividas" class="tab-content">
+            <div class="form-section">
+                <h3>💳 Nova Dívida</h3>
+                
+                <!-- Assistente de Parcelamento Inteligente -->
+                <div class="card" style="margin-bottom: 20px; background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);">
+                    <h4>🤖 Assistente de Parcelamento Inteligente</h4>
+                    <p style="margin-bottom: 15px;">Informe a data da compra e o total de parcelas. O sistema calculará automaticamente quais já foram pagas!</p>
+                    
+                    <form id="form-parcelamento-inteligente">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <div class="form-group">
+                                <label for="item-parcelado">Item/Credor:</label>
+                                <input type="text" id="item-parcelado" placeholder="Ex: iPhone, Casas Bahia" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="data-compra">Data da Compra:</label>
+                                <input type="date" id="data-compra" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="valor-total-parcelado">Valor Total:</label>
+                                <input type="number" id="valor-total-parcelado" step="0.01" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="total-parcelas-inteligente">Total de Parcelas:</label>
+                                <input type="number" id="total-parcelas-inteligente" min="2" max="60" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="dia-vencimento">Dia do Vencimento:</label>
+                                <input type="number" id="dia-vencimento" min="1" max="31" placeholder="Ex: 15" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="categoria-parcelado">Categoria:</label>
+                                <select id="categoria-parcelado" required>
+                                    <option value="alimentacao">🍽️ Alimentação</option>
+                                    <option value="transporte">🚗 Transporte</option>
+                                    <option value="casa">🏠 Casa</option>
+                                    <option value="saude">💊 Saúde</option>
+                                    <option value="lazer">🎮 Lazer</option>
+                                    <option value="roupas">👕 Roupas</option>
+                                    <option value="internet">🌐 Internet/Fibra</option>
+                                    <option value="telefone">📱 Telefone Móvel</option>
+                                    <option value="cartao">💳 Cartão de Crédito</option>
+                                    <option value="estudos">📚 Estudos</option>
+                                    <option value="outros">📦 Outros</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary" style="width: 100%; margin-top: 15px;">🤖 Processar Parcelamento Inteligente</button>
+                    </form>
+                    
+                    <div id="preview-parcelamento" style="margin-top: 15px; display: none;">
+                        <h5>📋 Preview do Processamento:</h5>
+                        <div id="info-parcelamento"></div>
+                    </div>
+                </div>
+                
+                <form id="form-divida">
+                    <div class="form-group">
+                        <label for="credor">Credor/Item:</label>
+                        <input type="text" id="credor" placeholder="Ex: Nubank, Casas Bahia" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="valor-total">Valor Total:</label>
+                        <input type="number" id="valor-total" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="parcela-atual">Parcela Atual:</label>
+                        <input type="number" id="parcela-atual" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="total-parcelas">Total de Parcelas:</label>
+                        <input type="number" id="total-parcelas" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="valor-parcela">Valor da Parcela:</label>
+                        <input type="number" id="valor-parcela" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="taxa-juros">Taxa de Juros (% ao mês):</label>
+                        <input type="number" id="taxa-juros" step="0.01" placeholder="0 se não houver">
+                    </div>
+                    <div class="form-group">
+                        <label for="vencimento">Próximo Vencimento:</label>
+                        <input type="date" id="vencimento" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="status-divida">Status:</label>
+                        <select id="status-divida" required>
+                            <option value="em-dia">✅ Em dia</option>
+                            <option value="proximo-vencimento">⚠️ Próximo do vencimento</option>
+                            <option value="atrasado">🔴 Atrasado</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-primary">Adicionar Dívida</button>
+                </form>
+            </div>
+
+            <div class="card" style="margin-top: 20px;">
+                <h3>📊 Resumo de Dívidas</h3>
+                <div class="stats">
+                    <div class="stat">
+                        <span class="label">Total de Dívidas:</span>
+                        <span class="value negative" id="total-dividas">R$ 0,00</span>
+                    </div>
+                    <div class="stat">
+                        <span class="label">Parcelas Mensais:</span>
+                        <span class="value" id="total-parcelas-mes">R$ 0,00</span>
+                    </div>
+                    <div class="stat">
+                        <span class="label">Dívidas Atrasadas:</span>
+                        <span class="value negative" id="dividas-atrasadas">0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="label">Próximos Vencimentos:</span>
+                        <span class="value" id="proximos-vencimentos">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 20px;">
+                <h3>🎯 Estratégia de Quitação</h3>
+                <div id="estrategia-quitacao">
+                    <p class="empty-state">Adicione dívidas para ver sugestões de quitação</p>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 20px;">
+                <h3>📋 Tabela de Dívidas</h3>
+                <div class="filter-section">
+                    <select id="filtro-prioridade">
+                        <option value="">Todas as prioridades</option>
+                        <option value="maxima">Prioridade Máxima</option>
+                        <option value="estrategica">Estratégica</option>
+                        <option value="negociacao">Negociação</option>
+                    </select>
+                    <select id="filtro-status">
+                        <option value="">Todos os status</option>
+                        <option value="em-dia">Em dia</option>
+                        <option value="proximo-vencimento">Próximo vencimento</option>
+                        <option value="atrasado">Atrasado</option>
+                    </select>
+                </div>
+                <div id="tabela-dividas" class="dividas-table">
+                    <p class="empty-state">Nenhuma dívida cadastrada</p>
                 </div>
             </div>
         </div>
