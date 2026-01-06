@@ -47,6 +47,18 @@ O **Controle de Gastos Sergio Sena** é uma aplicação web completa para gerenc
 - Filtros por mês e ordenação
 - Detecção de lançamentos duplicados
 
+### 💳 Gestão de Dívidas
+- **🤖 Assistente de Parcelamento Inteligente** - NOVO!
+  - Calcula automaticamente parcelas pagas desde a data da compra
+  - Gera lançamentos históricos das parcelas já pagas
+  - Adiciona apenas parcelas restantes na gestão de dívidas
+- Cadastro completo de dívidas parceladas
+- Sistema de prioridades automático (Máxima, Estratégica, Negociação)
+- Estratégias de quitação inteligentes
+- Controle de parcelas e juros
+- Alertas de vencimento e dívidas atrasadas
+- Resumo financeiro de comprometimento mensal
+
 ### 🧮 Calculadora
 - Calculadora funcional integrada
 - Suporte a operações básicas
@@ -59,6 +71,40 @@ O **Controle de Gastos Sergio Sena** é uma aplicação web completa para gerenc
 - Notificações visuais
 - Validação de formulários
 - Navegação por abas
+- Sistema de backup/sincronização na nuvem (GitHub Gist)
+
+## 🤖 Assistente de Parcelamento Inteligente
+
+### Como Funciona
+O **Assistente de Parcelamento Inteligente** é uma funcionalidade revolucionária que automatiza o controle de compras parceladas:
+
+1. **Você informa:**
+   - Item/Credor (ex: "iPhone 15")
+   - Data da compra (ex: 15/08/2024)
+   - Valor total (ex: R$ 6.000)
+   - Total de parcelas (ex: 12x)
+   - Dia do vencimento (ex: dia 15)
+
+2. **O sistema calcula automaticamente:**
+   - ✅ Quantas parcelas já venceram desde a data da compra
+   - 💰 Valor de cada parcela
+   - ✅ Quanto já foi pago
+   - ⏳ Quanto ainda falta pagar
+   - 📅 Data do próximo vencimento
+
+3. **O que acontece:**
+   - 📝 **Cria lançamentos automáticos** das parcelas já pagas no histórico
+   - 💳 **Adiciona na gestão de dívidas** apenas as parcelas restantes
+   - ✅ **Marca as parcelas pagas** como quitadas
+
+### Exemplo Prático
+**Compra:** iPhone em 15/08/2024 por R$ 6.000 em 12x de R$ 500  
+**Hoje:** 15/12/2024
+
+**O sistema vai:**
+- ✅ Criar 4 lançamentos no histórico (ago, set, out, nov) = R$ 2.000 já pagos
+- 💳 Adicionar dívida com 8 parcelas restantes = R$ 4.000 a pagar
+- 📅 Próximo vencimento: 15/12/2024
 
 ## 📁 Estrutura do Projeto
 
