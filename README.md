@@ -8,15 +8,19 @@ Uma aplicação web moderna e intuitiva para controle financeiro pessoal, desenv
 
 ## 🆕 NOVO: SmartFinance - Assistente Financeiro IA
 
-**🤖 Versão com Inteligência Artificial em desenvolvimento!**
+**🤖 Versão 2.0 com Landing Page e Validações de Segurança!**
 
+- 🎨 **Landing Page Profissional** - Hero, Features, Pricing, CTA
+- 🔐 **Validações de Segurança** - Email regex, confirmação de senha, força da senha
+- 🎯 **Ícones Modernos** - Lucide React (substituiu emojis)
+- ✨ **Micro-animações** - Hover effects, skeleton loading, stagger animations
 - 🏦 **Open Finance Real** - Integração com 67 bancos via Pluggy
 - 🧠 **Análise IA** - Google Gemini para insights automáticos
-- 🔐 **Autenticação** - Sistema JWT completo
-- 📊 **Dashboard Avançado** - React + TypeScript
+- 🔐 **Autenticação JWT** - Sistema completo com validações
+- 📊 **Dashboard Avançado** - React + TypeScript + Chart.js
 - 💾 **MongoDB Atlas** - Armazenamento em nuvem
 
-**Status:** ✅ Backend funcionando | ✅ Frontend MVP | ✅ Pluggy integrado
+**Status:** ✅ Landing Page | ✅ Validações | ✅ Dashboard | ✅ Pluggy integrado
 
 📁 **Localização:** `./smartfinance/` (pasta do projeto IA)
 

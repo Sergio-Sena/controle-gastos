@@ -15,6 +15,7 @@
     "aws-amplify": "^6.16.2",
     "axios": "^1.13.5",
     "chart.js": "^4.5.1",
+    "lucide-react": "^0.575.0",
     "mongodb": "^7.1.0",
     "pluggy-connect-sdk": "^2.13.0",
     "react": "^19.2.0",

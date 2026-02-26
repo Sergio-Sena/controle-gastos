@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
+import { TrendingUp, Mail, Lock, LogIn, Loader2 } from 'lucide-react';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -7,6 +8,11 @@ const Login: React.FC = () => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
+
+  // Validações
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const isEmailValid = email === '' || emailRegex.test(email);
+  const canSubmit = email && isEmailValid && password.length >= 6;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,7 +40,9 @@ const Login: React.FC = () => {
       boxShadow: 'var(--shadow-xl)'
     }}>
       <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-        <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>💰</div>
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.5rem' }}>
+          <TrendingUp size={48} style={{ color: 'var(--primary-500)' }} />
+        </div>
         <h2 style={{ 
           margin: 0, 
           fontSize: '1.75rem', 
@@ -56,13 +64,15 @@ const Login: React.FC = () => {
       <form onSubmit={handleSubmit}>
         <div style={{ marginBottom: '1.5rem' }}>
           <label style={{ 
-            display: 'block',
             marginBottom: '0.5rem',
             color: 'var(--text-primary)',
             fontWeight: '500',
-            fontSize: '0.9rem'
+            fontSize: '0.9rem',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem'
           }}>
-            📧 Email
+            <Mail size={16} /> Email
           </label>
           <input
             type="email"
@@ -75,27 +85,29 @@ const Login: React.FC = () => {
               width: '100%',
               padding: '0.875rem 1rem',
               fontSize: '1rem',
-              border: '2px solid var(--border-color)',
+              border: `2px solid ${email && !isEmailValid ? 'var(--error-500)' : 'var(--border-color)'}`,
               borderRadius: 'var(--radius-lg)',
               background: 'var(--bg-primary)',
               color: 'var(--text-primary)',
               transition: 'all var(--transition-base)',
               outline: 'none'
             }}
-            onFocus={(e) => e.target.style.borderColor = 'var(--primary-500)'}
-            onBlur={(e) => e.target.style.borderColor = 'var(--border-color)'}
+            onFocus={(e) => e.target.style.borderColor = email && !isEmailValid ? 'var(--error-500)' : 'var(--primary-500)'}
+            onBlur={(e) => e.target.style.borderColor = email && !isEmailValid ? 'var(--error-500)' : 'var(--border-color)'}
           />
         </div>
         
         <div style={{ marginBottom: '1.5rem' }}>
           <label style={{ 
-            display: 'block',
             marginBottom: '0.5rem',
             color: 'var(--text-primary)',
             fontWeight: '500',
-            fontSize: '0.9rem'
+            fontSize: '0.9rem',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem'
           }}>
-            🔒 Senha
+            <Lock size={16} /> Senha
           </label>
           <input
             type="password"
@@ -140,33 +152,34 @@ const Login: React.FC = () => {
 
         <button
           type="submit"
-          disabled={isLoading}
+          disabled={isLoading || !canSubmit}
           style={{
             width: '100%',
             padding: '1rem',
             fontSize: '1rem',
             fontWeight: '600',
-            background: isLoading ? 'var(--neutral-400)' : 'var(--primary-500)',
+            background: (isLoading || !canSubmit) ? 'var(--neutral-400)' : 'var(--primary-500)',
             color: 'white',
             border: 'none',
             borderRadius: 'var(--radius-lg)',
-            cursor: isLoading ? 'not-allowed' : 'pointer',
+            cursor: (isLoading || !canSubmit) ? 'not-allowed' : 'pointer',
             transition: 'all var(--transition-base)',
             boxShadow: 'var(--shadow-md)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            gap: '0.5rem'
+            gap: '0.5rem',
+            opacity: !canSubmit ? 0.6 : 1
           }}
           onMouseEnter={(e) => {
-            if (!isLoading) {
+            if (!isLoading && canSubmit) {
               e.currentTarget.style.background = 'var(--primary-600)';
               e.currentTarget.style.transform = 'translateY(-2px)';
               e.currentTarget.style.boxShadow = 'var(--shadow-lg)';
             }
           }}
           onMouseLeave={(e) => {
-            if (!isLoading) {
+            if (!isLoading && canSubmit) {
               e.currentTarget.style.background = 'var(--primary-500)';
               e.currentTarget.style.transform = 'translateY(0)';
               e.currentTarget.style.boxShadow = 'var(--shadow-md)';
@@ -175,20 +188,12 @@ const Login: React.FC = () => {
         >
           {isLoading ? (
             <>
-              <span style={{ 
-                display: 'inline-block',
-                width: '16px',
-                height: '16px',
-                border: '2px solid white',
-                borderTopColor: 'transparent',
-                borderRadius: '50%',
-                animation: 'spin 0.6s linear infinite'
-              }} />
+              <Loader2 size={16} className="animate-spin" />
               Entrando...
             </>
           ) : (
             <>
-              <span>🚀</span>
+              <LogIn size={16} />
               Entrar
             </>
           )}

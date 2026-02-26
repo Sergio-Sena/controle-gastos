@@ -21,6 +21,41 @@ Aplicação web moderna de controle financeiro pessoal com integração Open Fin
 
 ## 📋 Funcionalidades
 
+### 🎉 Versão 2.0 - Landing Page & Validações (Atual)
+
+### 🎨 Landing Page Profissional
+- **Hero Section**: Título impactante, subtítulo, 2 CTAs principais
+- **Features Section**: 4 cards com ícones (Análise Inteligente, Open Finance, Alertas, IA)
+- **Pricing Section**: 3 planos (Free, Pro R$49, Business R$99) com destaque
+- **CTA Final**: Seção com gradiente e call-to-action forte
+- **Footer**: Logo + copyright
+- **Header Sticky**: Logo + botão CTA sempre visível
+- **Roteamento**: Landing → Auth → Dashboard
+
+### 🔐 Validações de Segurança
+- **Email**: Regex validation com feedback visual em tempo real
+- **Senha**: Mínimo 6 caracteres obrigatório
+- **Força da Senha**: Indicador (8+ caracteres, 1 maiúscula, 1 número)
+- **Confirmação**: Campo adicional no registro com validação de correspondência
+- **Feedback Visual**: ✓ verde (válido), ✗ vermelho (inválido), ⚠️ aviso
+- **Botão Inteligente**: Desabilitado se dados inválidos
+
+### 🎯 Ícones Modernos (Lucide React)
+- Substituídos todos emojis por ícones profissionais
+- Dashboard: TrendingUp, DollarSign, TrendingDown, CheckCircle, AlertCircle, BarChart3, PieChart, Building2, Plus, LogOut, Inbox
+- Auth: Mail, Lock, LogIn, UserPlus, Loader2, Sparkles, User
+- Landing: Shield, Zap, ArrowRight, Check
+
+### ✨ Micro-animações
+- `.hover-lift`: Elevação de cards ao hover
+- `.hover-scale`: Escala ao hover
+- `.hover-glow`: Efeito neon ao hover
+- `.skeleton`: Loading state com shimmer
+- `animate-fadeIn`, `animate-slideUp`: Animações de entrada
+- `.stagger-item`: Animações em cascata
+
+## 🎆 Versão 1.0 - Dashboard Completo
+
 ### ✅ Implementado
 - 🔐 **Autenticação completa** (Login/Registro com JWT)
 - 💰 **Gestão de transações** (Receitas e Despesas)

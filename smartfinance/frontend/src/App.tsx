@@ -3,6 +3,7 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Login from './components/Login';
 import Register from './components/Register';
 import Dashboard from './components/Dashboard';
+import LandingPage from './components/LandingPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import ThemeToggle from './components/ThemeToggle';
 
@@ -97,6 +98,7 @@ const AuthPage: React.FC = () => {
 
 const AppContent: React.FC = () => {
   const { user, isLoading } = useAuth();
+  const [showAuth, setShowAuth] = useState(false);
 
   if (isLoading) {
     return (
@@ -115,13 +117,19 @@ const AppContent: React.FC = () => {
     );
   }
 
-  return user ? (
-    <ProtectedRoute>
-      <Dashboard />
-    </ProtectedRoute>
-  ) : (
-    <AuthPage />
-  );
+  if (user) {
+    return (
+      <ProtectedRoute>
+        <Dashboard />
+      </ProtectedRoute>
+    );
+  }
+
+  if (showAuth) {
+    return <AuthPage />;
+  }
+
+  return <LandingPage onGetStarted={() => setShowAuth(true)} />;
 };
 
 function App() {

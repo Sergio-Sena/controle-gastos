@@ -6,6 +6,7 @@ import { Card, Button, Modal } from './ui';
 import ThemeToggle from './ThemeToggle';
 import FinanceChart from './FinanceChart';
 import TransactionForm from './TransactionForm';
+import { TrendingUp, DollarSign, TrendingDown, CheckCircle, AlertCircle, BarChart3, PieChart, Building2, Plus, LogOut, Inbox } from 'lucide-react';
 
 const Dashboard = () => {
   const { user, logout } = useAuth();
@@ -108,7 +109,7 @@ const Dashboard = () => {
         background: 'var(--bg-primary)'
       }}>
         <div className="animate-pulse" style={{ textAlign: 'center' }}>
-          <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>💰</div>
+          <TrendingUp size={48} style={{ color: 'var(--primary-500)', marginBottom: '1rem' }} />
           <div className="gradient-text" style={{ fontSize: 'var(--text-2xl)', fontWeight: 'bold' }}>
             Carregando...
           </div>
@@ -141,13 +142,16 @@ const Dashboard = () => {
           gap: '1rem'
         }}>
           <div>
-            <h1 className="gradient-text" style={{ 
-              fontSize: 'clamp(1.5rem, 4vw, 2rem)', 
-              margin: 0,
-              fontWeight: 'bold'
-            }}>
-              💰 SmartFinance
-            </h1>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+              <TrendingUp size={32} style={{ color: 'var(--primary-500)' }} />
+              <h1 className="gradient-text" style={{ 
+                fontSize: 'clamp(1.5rem, 4vw, 2rem)', 
+                margin: 0,
+                fontWeight: 'bold'
+              }}>
+                SmartFinance
+              </h1>
+            </div>
             <p style={{ 
               margin: 0, 
               color: 'var(--text-secondary)',
@@ -160,7 +164,7 @@ const Dashboard = () => {
           <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
             <ThemeToggle />
             <Button variant="ghost" size="sm" onClick={logout}>
-              🚪 Sair
+              <LogOut size={16} style={{ marginRight: '0.25rem' }} /> Sair
             </Button>
           </div>
         </div>
@@ -178,7 +182,9 @@ const Dashboard = () => {
         }}>
           <Card glass hover className="stagger-item">
             <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>💵</div>
+              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.5rem' }}>
+                <DollarSign size={32} style={{ color: 'var(--success-500)' }} />
+              </div>
               <p style={{ 
                 margin: 0, 
                 color: 'var(--text-secondary)', 
@@ -200,7 +206,9 @@ const Dashboard = () => {
 
           <Card glass hover className="stagger-item" style={{ animationDelay: '100ms' }}>
             <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>💸</div>
+              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.5rem' }}>
+                <TrendingDown size={32} style={{ color: 'var(--error-500)' }} />
+              </div>
               <p style={{ 
                 margin: 0, 
                 color: 'var(--text-secondary)', 
@@ -222,8 +230,11 @@ const Dashboard = () => {
 
           <Card glass hover className="stagger-item" style={{ animationDelay: '200ms' }}>
             <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>
-                {summary.saldo >= 0 ? '✅' : '⚠️'}
+              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.5rem' }}>
+                {summary.saldo >= 0 ? 
+                  <CheckCircle size={32} style={{ color: 'var(--success-500)' }} /> : 
+                  <AlertCircle size={32} style={{ color: 'var(--error-500)' }} />
+                }
               </div>
               <p style={{ 
                 margin: 0, 
@@ -262,12 +273,15 @@ const Dashboard = () => {
               <h2 style={{ 
                 margin: 0, 
                 fontSize: 'clamp(1.25rem, 3vw, 1.5rem)',
-                fontWeight: 'bold'
+                fontWeight: 'bold',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem'
               }}>
-                📊 Transações
+                <BarChart3 size={24} style={{ color: 'var(--primary-500)' }} /> Transações
               </h2>
               <Button variant="primary" size="sm" onClick={() => setShowTransactionModal(true)}>
-                + Nova
+                <Plus size={16} style={{ marginRight: '0.25rem' }} /> Nova
               </Button>
             </div>
 
@@ -277,7 +291,7 @@ const Dashboard = () => {
                 padding: '3rem 1rem',
                 color: 'var(--text-secondary)'
               }}>
-                <div style={{ fontSize: '4rem', marginBottom: '1rem', opacity: 0.5 }}>📭</div>
+                <Inbox size={64} style={{ opacity: 0.3, marginBottom: '1rem' }} />
                 <p style={{ margin: 0 }}>Nenhuma transação ainda</p>
               </div>
             ) : (
@@ -324,21 +338,24 @@ const Dashboard = () => {
             <h2 style={{ 
               margin: '0 0 1.5rem 0', 
               fontSize: 'clamp(1.25rem, 3vw, 1.5rem)',
-              fontWeight: 'bold'
+              fontWeight: 'bold',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem'
             }}>
-              🏦 Open Finance
+              <Building2 size={24} style={{ color: 'var(--primary-500)' }} /> Open Finance
             </h2>
             <div style={{ 
               textAlign: 'center', 
               padding: '2rem 1rem',
               color: 'var(--text-secondary)'
             }}>
-              <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🔗</div>
+              <Building2 size={48} style={{ color: 'var(--primary-500)', marginBottom: '1rem', opacity: 0.5 }} />
               <p style={{ margin: '0 0 1rem 0' }}>
                 Conecte seus bancos para importar transações automaticamente
               </p>
               <Button variant="primary" size="md" onClick={handleOpenBankModal}>
-                🏦 Conectar Banco
+                <Building2 size={16} style={{ marginRight: '0.5rem' }} /> Conectar Banco
               </Button>
             </div>
           </Card>
@@ -355,9 +372,12 @@ const Dashboard = () => {
               <h2 style={{ 
                 margin: '0 0 1.5rem 0', 
                 fontSize: 'clamp(1.25rem, 3vw, 1.5rem)',
-                fontWeight: 'bold'
+                fontWeight: 'bold',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem'
               }}>
-                📊 Gastos por Categoria
+                <BarChart3 size={24} style={{ color: 'var(--primary-500)' }} /> Gastos por Categoria
               </h2>
               <FinanceChart data={categoryData} type="bar" title="Gastos por Categoria" />
             </Card>
@@ -366,9 +386,12 @@ const Dashboard = () => {
               <h2 style={{ 
                 margin: '0 0 1.5rem 0', 
                 fontSize: 'clamp(1.25rem, 3vw, 1.5rem)',
-                fontWeight: 'bold'
+                fontWeight: 'bold',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem'
               }}>
-                🥧 Distribuição de Gastos
+                <PieChart size={24} style={{ color: 'var(--primary-500)' }} /> Distribuição de Gastos
               </h2>
               <FinanceChart data={categoryData} type="pie" title="Distribuição" />
             </Card>
@@ -377,7 +400,7 @@ const Dashboard = () => {
       </main>
 
       {/* Modal de Bancos */}
-      <Modal isOpen={showBankModal} onClose={() => setShowBankModal(false)} title="🏦 Conectar Banco">
+      <Modal isOpen={showBankModal} onClose={() => setShowBankModal(false)} title={<span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Building2 size={24} /> Conectar Banco</span>}>
         <div style={{ marginBottom: '1.5rem' }}>
           <input
             type="text"
