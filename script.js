@@ -79,6 +79,38 @@ function toggleCategoria() {
         categoriaGroup.style.display = 'block';
         recorrenteGroup.style.display = 'block';
         document.getElementById('categoria').required = true;
+        
+        // Categorias de despesas
+        document.getElementById('categoria').innerHTML = `
+            <option value="alimentacao">🍽️ Alimentação</option>
+            <option value="transporte">🚗 Transporte</option>
+            <option value="casa">🏠 Casa</option>
+            <option value="saude">💊 Saúde</option>
+            <option value="lazer">🎮 Lazer</option>
+            <option value="roupas">👕 Roupas</option>
+            <option value="internet">🌐 Internet/Fibra</option>
+            <option value="telefone">📱 Telefone Móvel</option>
+            <option value="cartao">💳 Cartão de Crédito</option>
+            <option value="estudos">📚 Estudos</option>
+            <option value="outros">📦 Outros</option>
+        `;
+    } else if (tipo === 'receita') {
+        categoriaGroup.style.display = 'block';
+        recorrenteGroup.style.display = 'block';
+        document.getElementById('categoria').required = true;
+        
+        // Categorias de receitas
+        document.getElementById('categoria').innerHTML = `
+            <option value="salario">💼 Salário</option>
+            <option value="freelance">💻 Freelance</option>
+            <option value="bonus">🎁 Bônus/13º</option>
+            <option value="investimentos">📈 Investimentos</option>
+            <option value="aluguel">🏠 Aluguel Recebido</option>
+            <option value="vendas">🛒 Vendas</option>
+            <option value="pensao">👨‍👩‍👧‍👦 Pensão/Aposentadoria</option>
+            <option value="emprestimo">💰 Empréstimo Recebido</option>
+            <option value="outros">📦 Outras Receitas</option>
+        `;
     } else {
         categoriaGroup.style.display = 'none';
         recorrenteGroup.style.display = 'none';
@@ -93,8 +125,8 @@ async function adicionarLancamento(e) {
     const descricao = document.getElementById('descricao').value;
     const valor = parseFloat(document.getElementById('valor').value);
     const tipo = document.getElementById('tipo').value;
-    const categoria = tipo === 'despesa' ? document.getElementById('categoria').value : null;
-    const recorrente = tipo === 'despesa' ? document.getElementById('recorrente').checked : false;
+    const categoria = document.getElementById('categoria').value || null;
+    const recorrente = document.getElementById('recorrente').checked;
     const data = document.getElementById('data').value;
     
     // Verificar duplicatas apenas para novos lançamentos
@@ -394,6 +426,7 @@ function setupFiltroMes() {
     const selectCategoria = document.getElementById('filtro-categoria');
     if (selectCategoria) {
         const categorias = {
+            // Categorias de despesas
             'alimentacao': '🍽️ Alimentação',
             'transporte': '🚗 Transporte',
             'casa': '🏠 Casa',
@@ -404,6 +437,15 @@ function setupFiltroMes() {
             'telefone': '📱 Telefone Móvel',
             'cartao': '💳 Cartão de Crédito',
             'estudos': '📚 Estudos',
+            // Categorias de receitas
+            'salario': '💼 Salário',
+            'freelance': '💻 Freelance',
+            'bonus': '🎁 Bônus/13º',
+            'investimentos': '📈 Investimentos',
+            'aluguel': '🏠 Aluguel Recebido',
+            'vendas': '🛒 Vendas',
+            'pensao': '👨👩👧👦 Pensão/Aposentadoria',
+            'emprestimo': '💰 Empréstimo Recebido',
             'outros': '📦 Outros'
         };
         
@@ -1295,6 +1337,325 @@ async function processarParcelamentoInteligente(e) {
     document.getElementById('preview-parcelamento').style.display = 'none';
     
     showNotification(`🤖 Processamento concluído! ${resultado.parcelasPagas} parcelas adicionadas ao histórico e ${resultado.parcelasRestantes} parcelas na gestão de dívidas.`);
+}
+
+// ===== CONSULTOR FINANCEIRO IA =====
+
+function mostrarLancamentoManual() {
+    console.log('🔍 Tentando mostrar lançamento manual...');
+    
+    // Aguardar um pouco para garantir que o DOM está carregado
+    setTimeout(() => {
+        const lancamentoManual = document.getElementById('lancamento-manual');
+        const resultadoConsultoria = document.getElementById('resultado-consultoria');
+        
+        console.log('Elementos encontrados:', {
+            lancamentoManual: !!lancamentoManual,
+            resultadoConsultoria: !!resultadoConsultoria
+        });
+        
+        if (lancamentoManual) {
+            lancamentoManual.style.display = 'block';
+            console.log('✅ Formulário manual exibido');
+        } else {
+            console.error('❌ Elemento lancamento-manual não encontrado');
+            // Tentar criar o elemento se não existir
+            criarFormularioManual();
+        }
+        
+        if (resultadoConsultoria) {
+            resultadoConsultoria.style.display = 'none';
+        }
+        
+        // Setup do formulário
+        const form = document.getElementById('form-consultoria');
+        if (form && !form.hasEventListener) {
+            form.addEventListener('submit', processarConsultoriaManual);
+            form.hasEventListener = true;
+            console.log('📝 Event listener adicionado ao formulário');
+        }
+    }, 100);
+}
+
+function criarFormularioManual() {
+    console.log('🔧 Criando formulário manual...');
+    const consultorTab = document.getElementById('consultor');
+    if (!consultorTab) {
+        console.error('❌ Tab consultor não encontrada');
+        return;
+    }
+    
+    // Verificar se já existe
+    if (document.getElementById('lancamento-manual')) {
+        return;
+    }
+    
+    const formularioHTML = `
+        <div id="lancamento-manual" class="card" style="display: none;">
+            <h3>📝 Informe seus Dados Financeiros</h3>
+            <form id="form-consultoria">
+                <div class="form-group">
+                    <label for="renda-mensal">Renda Mensal Total:</label>
+                    <input type="number" id="renda-mensal" step="0.01" placeholder="Ex: 4500.00" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Dívidas (uma por linha - você pode lançar várias de uma vez):</label>
+                    <textarea id="dividas-texto" rows="4" placeholder="Exemplo (cada dívida em uma linha):\nCartão Nubank - R$ 2500\nEmpréstimo Banco - R$ 15000\nFinanciamento Carro - R$ 25000" style="width: 100%; padding: 10px; border-radius: 5px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white;"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Despesas Fixas (uma por linha):</label>
+                    <textarea id="despesas-fixas" rows="3" placeholder="Exemplo:\nAluguel - R$ 800\nInternet - R$ 100\nPlano Celular - R$ 50" style="width: 100%; padding: 10px; border-radius: 5px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white;"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Despesas Variáveis (uma por linha):</label>
+                    <textarea id="despesas-variaveis" rows="3" placeholder="Exemplo:\nAlimentação - R$ 600\nTransporte - R$ 200\nLazer - R$ 300" style="width: 100%; padding: 10px; border-radius: 5px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white;"></textarea>
+                </div>
+                
+                <button type="submit" class="btn-primary" style="width: 100%; margin-top: 15px;">🎯 Gerar Plano de Ação</button>
+            </form>
+        </div>
+        
+        <div id="resultado-consultoria" class="card" style="display: none;">
+            <h3>🎯 Seu Plano de Ação Personalizado</h3>
+            <div id="plano-acao"></div>
+            <button onclick="mostrarLancamentoManual()" class="btn-secondary" style="margin-top: 15px;">📝 Editar Dados</button>
+        </div>
+    `;
+    
+    // Inserir após o primeiro card
+    const primeiroCard = consultorTab.querySelector('.card');
+    if (primeiroCard) {
+        primeiroCard.insertAdjacentHTML('afterend', formularioHTML);
+        console.log('✅ Formulário manual criado');
+    }
+}
+
+function gerarConsultoriaAutomatica() {
+    console.log('🤖 Gerando consultoria automática...');
+    
+    const lancamentoManual = document.getElementById('lancamento-manual');
+    if (lancamentoManual) {
+        lancamentoManual.style.display = 'none';
+    }
+    
+    try {
+        const dadosAutomaticos = coletarDadosDoSistema();
+        console.log('📊 Dados coletados:', dadosAutomaticos);
+        
+        if (dadosAutomaticos.rendaMensal === 0 && dadosAutomaticos.dividas.length === 0) {
+            showNotification('⚠️ Nenhum dado encontrado! Adicione lançamentos ou use o formulário manual.');
+            return;
+        }
+        
+        const plano = gerarPlanoDeAcao(dadosAutomaticos);
+        
+        const planoElement = document.getElementById('plano-acao');
+        const resultadoElement = document.getElementById('resultado-consultoria');
+        
+        if (planoElement && resultadoElement) {
+            planoElement.innerHTML = plano;
+            resultadoElement.style.display = 'block';
+            showNotification('🤖 Consultoria gerada com base nos seus dados!');
+        } else {
+            console.error('❌ Elementos de resultado não encontrados');
+            showNotification('⚠️ Erro na interface. Tente recarregar a página.');
+        }
+    } catch (error) {
+        console.error('Erro na consultoria automática:', error);
+        showNotification('⚠️ Erro: Adicione alguns lançamentos primeiro!');
+    }
+}
+
+function processarConsultoriaManual(e) {
+    e.preventDefault();
+    
+    try {
+        const rendaMensal = parseFloat(document.getElementById('renda-mensal').value);
+        const dividasTexto = document.getElementById('dividas-texto').value;
+        const despesasFixas = document.getElementById('despesas-fixas').value;
+        const despesasVariaveis = document.getElementById('despesas-variaveis').value;
+        
+        if (!rendaMensal || rendaMensal <= 0) {
+            showNotification('⚠️ Por favor, informe uma renda mensal válida!');
+            return;
+        }
+        
+        const dados = {
+            rendaMensal: rendaMensal,
+            dividas: parsearTextoFinanceiro(dividasTexto),
+            despesasFixas: parsearTextoFinanceiro(despesasFixas),
+            despesasVariaveis: parsearTextoFinanceiro(despesasVariaveis)
+        };
+        
+        const plano = gerarPlanoDeAcao(dados);
+        
+        document.getElementById('plano-acao').innerHTML = plano;
+        document.getElementById('resultado-consultoria').style.display = 'block';
+        document.getElementById('lancamento-manual').style.display = 'none';
+        
+        showNotification('🎯 Plano de ação gerado com sucesso!');
+    } catch (error) {
+        console.error('Erro no processamento manual:', error);
+        showNotification('⚠️ Erro ao processar dados. Verifique o formato!');
+    }
+}
+
+function parsearTextoFinanceiro(texto) {
+    const linhas = texto.split('\n').filter(linha => linha.trim());
+    const itens = [];
+    
+    linhas.forEach(linha => {
+        const match = linha.match(/(.+?)\s*-\s*R\$\s*([\d.,]+)/i);
+        if (match) {
+            const nome = match[1].trim();
+            const valor = parseFloat(match[2].replace(',', '.'));
+            itens.push({ nome, valor });
+        }
+    });
+    
+    return itens;
+}
+
+function coletarDadosDoSistema() {
+    const mesAtual = new Date().getMonth();
+    const anoAtual = new Date().getFullYear();
+    
+    // Receitas do mês
+    const receitas = lancamentos
+        .filter(l => {
+            const dataLancamento = new Date(l.data + 'T00:00:00');
+            return l.tipo === 'receita' && 
+                   dataLancamento.getMonth() === mesAtual && 
+                   dataLancamento.getFullYear() === anoAtual;
+        })
+        .reduce((sum, l) => sum + l.valor, 0);
+    
+    // Despesas por categoria
+    const despesasPorCategoria = {};
+    lancamentos
+        .filter(l => {
+            const dataLancamento = new Date(l.data + 'T00:00:00');
+            return l.tipo === 'despesa' && 
+                   dataLancamento.getMonth() === mesAtual && 
+                   dataLancamento.getFullYear() === anoAtual;
+        })
+        .forEach(l => {
+            const categoria = l.categoria || 'outros';
+            despesasPorCategoria[categoria] = (despesasPorCategoria[categoria] || 0) + l.valor;
+        });
+    
+    // Dívidas
+    const dividasAtivas = dividas.map(d => ({
+        nome: d.credor,
+        valor: d.valorTotal,
+        parcela: d.valorParcela,
+        juros: d.taxaJuros,
+        status: d.status
+    }));
+    
+    return {
+        rendaMensal: receitas,
+        dividas: dividasAtivas,
+        despesasFixas: Object.entries(despesasPorCategoria)
+            .filter(([cat]) => ['casa', 'transporte', 'internet', 'telefone'].includes(cat))
+            .map(([cat, valor]) => ({ nome: cat, valor })),
+        despesasVariaveis: Object.entries(despesasPorCategoria)
+            .filter(([cat]) => ['lazer', 'roupas', 'outros'].includes(cat))
+            .map(([cat, valor]) => ({ nome: cat, valor }))
+    };
+}
+
+function gerarPlanoDeAcao(dados) {
+    const totalDividas = dados.dividas.reduce((sum, d) => sum + d.valor, 0);
+    const totalDespesasFixas = dados.despesasFixas.reduce((sum, d) => sum + d.valor, 0);
+    const totalDespesasVariaveis = dados.despesasVariaveis.reduce((sum, d) => sum + d.valor, 0);
+    const totalGastos = totalDespesasFixas + totalDespesasVariaveis;
+    const saldoMensal = dados.rendaMensal - totalGastos;
+    const comprometimento = ((totalGastos / dados.rendaMensal) * 100).toFixed(1);
+    
+    let plano = `
+        <div class="diagnostico" style="background: rgba(239, 68, 68, 0.2); padding: 20px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid #ef4444;">
+            <h4>🚨 DIAGNÓSTICO FINANCEIRO</h4>
+            <p><strong>Renda Mensal:</strong> ${formatarMoeda(dados.rendaMensal)}</p>
+            <p><strong>Gastos Totais:</strong> ${formatarMoeda(totalGastos)}</p>
+            <p><strong>Saldo Mensal:</strong> <span class="${saldoMensal >= 0 ? 'positive' : 'negative'}">${formatarMoeda(saldoMensal)}</span></p>
+            <p><strong>Comprometimento:</strong> ${comprometimento}% da renda</p>
+            <p><strong>Total de Dívidas:</strong> ${formatarMoeda(totalDividas)}</p>
+        </div>
+    `;
+    
+    // Situação
+    if (saldoMensal < 0) {
+        plano += `
+            <div class="situacao" style="background: rgba(239, 68, 68, 0.2); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                <h4>🚨 SITUAÇÃO CRÍTICA</h4>
+                <p>Você está gastando <strong>${formatarMoeda(Math.abs(saldoMensal))}</strong> a mais do que ganha por mês!</p>
+            </div>
+        `;
+    }
+    
+    // Cortes sugeridos
+    plano += `
+        <div class="cortes" style="background: rgba(251, 191, 36, 0.2); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+            <h4>✂️ CORTES IMEDIATOS</h4>
+    `;
+    
+    dados.despesasVariaveis.forEach(despesa => {
+        const corte = despesa.valor * 0.5; // 50% de corte
+        const novo = despesa.valor - corte;
+        plano += `<p>• <strong>${despesa.nome}:</strong> Cortar 50% (${formatarMoeda(despesa.valor)} → ${formatarMoeda(novo)})</p>`;
+    });
+    
+    plano += `</div>`;
+    
+    // Renegociação
+    if (dados.dividas.length > 0) {
+        plano += `
+            <div class="renegociacao" style="background: rgba(59, 130, 246, 0.2); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                <h4>🤝 RENEGOCIAR URGENTE</h4>
+        `;
+        
+        dados.dividas.forEach(divida => {
+            if (divida.juros > 3 || divida.status === 'atrasado') {
+                plano += `<p>• <strong>${divida.nome}:</strong> Renegociar juros e parcelamento</p>`;
+            }
+        });
+        
+        plano += `</div>`;
+    }
+    
+    // Plano 3 meses
+    plano += `
+        <div class="plano-mensal" style="background: rgba(34, 197, 94, 0.2); padding: 15px; border-radius: 8px;">
+            <h4>📅 PLANO 3 MESES</h4>
+            
+            <div style="margin: 10px 0; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 5px;">
+                <h5>📅 MÊS 1 - ESTABILIZAR</h5>
+                <p>• Aplicar todos os cortes sugeridos</p>
+                <p>• Renegociar dívidas com juros altos</p>
+                <p>• Parar de usar cartão de crédito</p>
+            </div>
+            
+            <div style="margin: 10px 0; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 5px;">
+                <h5>📅 MÊS 2 - ORGANIZAR</h5>
+                <p>• Quitar dívidas menores primeiro</p>
+                <p>• Manter os cortes do mês 1</p>
+                <p>• Buscar renda extra se possível</p>
+            </div>
+            
+            <div style="margin: 10px 0; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 5px;">
+                <h5>📅 MÊS 3 - SAIR DO VERMELHO</h5>
+                <p>• Focar na maior dívida restante</p>
+                <p>• Começar a formar reserva de emergência</p>
+                <p>• Manter disciplina nos gastos</p>
+            </div>
+        </div>
+    `;
+    
+    return plano;
 }
 
 function setDataTradeAtual() {

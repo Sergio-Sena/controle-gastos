@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pierre Design System - Teste UI/UX</title>
+    <link rel="stylesheet" href="pierre-design-system.css">
+    <script>
+        // Theme switcher
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+        }
+    </script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="flex items-center">
+                <h2 style="margin: 0; font-size: 18px;">Pierre Finance</h2>
+            </div>
+            <div class="flex items-center" style="gap: 16px;">
+                <button onclick="toggleTheme()" class="btn btn-secondary">🌓 Tema</button>
+                <button class="btn btn-primary">Crie uma conta</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="hero-title animate-fade-in-up">
+                Assistente de IA para<br>
+                finanças pessoais
+            </h1>
+            <p class="hero-subtitle animate-fade-in-up" style="animation-delay: 0.2s;">
+                Chegou o Pierre: a IA que entende, conversa e te ajuda a planejar e economizar
+            </p>
+            <button class="btn btn-primary animate-fade-in-up" style="animation-delay: 0.4s;">
+                Comece Grátis
+            </button>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section style="padding: 96px 40px; background: inherit;">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 48px;">
+                <h2 class="hero-title" style="font-size: 48px; margin-bottom: 16px;">
+                    Escolha seu<br>Plano Pierre
+                </h2>
+                <p class="hero-subtitle" style="font-size: 16px;">
+                    Selecione o plano perfeito para organizar suas finanças com Pierre
+                </p>
+            </div>
+
+            <div class="pricing-grid" style="flex-direction: row; justify-content: center; gap: 32px; flex-wrap: wrap;">
+                <!-- Plano Básico -->
+                <div class="pricing-card animate-fade-in-scale">
+                    <div class="pricing-header">
+                        <p class="pricing-category">Pierre Básico</p>
+                        <div class="flex items-baseline" style="gap: 4px;">
+                            <h3 class="pricing-price">Grátis</h3>
+                        </div>
+                        <p class="pricing-description">
+                            Para democratizar o acesso ao Open Finance
+                        </p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li class="pricing-feature">
+                            <svg class="pricing-feature-icon" viewBox="0 0 20 20" fill="none">
+                                <path d="M16.6667 5L7.50002 14.1667L3.33335 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="pricing-feature-text">Análise avançada com IA</span>
+                        </li>
+                        <li class="pricing-feature">
+                            <svg class="pricing-feature-icon" viewBox="0 0 20 20" fill="none">
+                                <path d="M16.6667 5L7.50002 14.1667L3.33335 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="pricing-feature-text">Integração com apenas 1 banco simultâneo</span>
+                        </li>
+                        <li class="pricing-feature">
+                            <svg class="pricing-feature-icon" viewBox="0 0 20 20" fill="none">
+                                <path d="M16.6667 5L7.50002 14.1667L3.33335 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="pricing-feature-text">Limite de conversas</span>
+                        </li>
+                    </ul>
+                    <button class="btn" style="background: transparent; border: 1px solid rgba(156, 163, 175, 0.3); color: inherit; height: 56px; width: 100%;">
+                        Começar agora
+                    </button>
+                </div>
+
+                <!-- Plano Pro -->
+                <div class="pricing-card popular animate-fade-in-scale" style="animation-delay: 0.1s;">
+                    <div class="pricing-badge">Mais Popular</div>
+                    <div class="pricing-header">
+                        <p class="pricing-category">Pierre Pro</p>
+                        <div class="flex items-baseline" style="gap: 4px;">
+                            <h3 class="pricing-price">R$ 39</h3>
+                            <span style="color: rgba(156, 163, 175, 1); font-size: 18px;">/mês</span>
+                        </div>
+                        <p class="pricing-description">
+                            Conecte até 5 bancos e tenha controle avançado das suas finanças
+                        </p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li class="pricing-feature">
+                            <svg class="pricing-feature-icon" viewBox="0 0 20 20" fill="none">
+                                <path d="M16.6667 5L7.50002 14.1667L3.33335 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="pricing-feature-text">Conecte até 5 bancos</span>
+                        </li>
+                        <li class="pricing-feature">
+                            <svg class="pricing-feature-icon" viewBox="0 0 20 20" fill="none">
+                                <path d="M16.6667 5L7.50002 14.1667L3.33335 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="pricing-feature-text">Conversas ilimitadas</span>
+                        </li>
+                        <li class="pricing-feature">
+                            <svg class="pricing-feature-icon" viewBox="0 0 20 20" fill="none">
+                                <path d="M16.6667 5L7.50002 14.1667L3.33335 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="pricing-feature-text">Alertas inteligentes</span>
+                        </li>
+                    </ul>
+                    <button class="btn btn-primary" style="width: 100%;">
+                        Seja pro
+                    </button>
+                </div>
+
+                <!-- Plano Premium -->
+                <div class="pricing-card animate-fade-in-scale" style="animation-delay: 0.2s;">
+                    <div class="pricing-header">
+                        <p class="pricing-category">Pierre Premium</p>
+                        <div class="flex items-baseline" style="gap: 4px;">
+                            <h3 class="pricing-price">R$ 199</h3>
+                            <span style="color: rgba(156, 163, 175, 1); font-size: 18px;">/mês</span>
+                        </div>
+                        <p class="pricing-description">
+                            Conecte bancos ilimitados e tenha visão completa das suas finanças
+                        </p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li class="pricing-feature">
+                            <svg class="pricing-feature-icon" viewBox="0 0 20 20" fill="none">
+                                <path d="M16.6667 5L7.50002 14.1667L3.33335 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="pricing-feature-text">Tudo do Pro</span>
+                        </li>
+                        <li class="pricing-feature">
+                            <svg class="pricing-feature-icon" viewBox="0 0 20 20" fill="none">
+                                <path d="M16.6667 5L7.50002 14.1667L3.33335 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="pricing-feature-text">Conecte bancos ilimitados</span>
+                        </li>
+                        <li class="pricing-feature">
+                            <svg class="pricing-feature-icon" viewBox="0 0 20 20" fill="none">
+                                <path d="M16.6667 5L7.50002 14.1667L3.33335 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="pricing-feature-text">Acesso prioritário a novidades</span>
+                        </li>
+                    </ul>
+                    <button class="btn btn-primary" style="width: 100%;">
+                        Assine o Premium
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Cards -->
+    <section style="padding: 96px 40px;">
+        <div class="container">
+            <div class="feature-grid">
+                <!-- Card 1 -->
+                <div class="feature-card feature-card-light card-hover animate-fade-in-scale">
+                    <div class="feature-card-header">
+                        <h3 class="feature-card-title feature-card-title-light">
+                            O jeito mais simples de entender pra onde seu dinheiro vai
+                        </h3>
+                    </div>
+                    <div class="feature-card-image">
+                        <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 24px;">
+                            📊 Dashboard
+                        </div>
+                    </div>
+                    <div class="feature-card-cta feature-card-cta-green">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="feature-card feature-card-dark card-hover animate-fade-in-scale" style="animation-delay: 0.1s;">
+                    <div class="feature-card-header">
+                        <h3 class="feature-card-title feature-card-title-dark">
+                            Receba insights reais sobre suas finanças
+                        </h3>
+                    </div>
+                    <div class="feature-card-image">
+                        <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 24px;">
+                            🤖 IA Insights
+                        </div>
+                    </div>
+                    <div class="feature-card-cta feature-card-cta-black">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M9 18L15 12L9 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Large Feature -->
+    <section style="padding: 96px 40px;">
+        <div class="container flex justify-center">
+            <div class="feature-large feature-large-pierre card-hover animate-fade-in-scale">
+                <div style="display: flex; width: 100%; flex-direction: row; align-items: center;">
+                    <div class="feature-large-content">
+                        <h2 class="feature-large-title feature-large-title-light">
+                            Seu consultor financeiro no seu bolso
+                        </h2>
+                        <button class="feature-large-cta feature-large-cta-green">
+                            Comece a usar agora →
+                        </button>
+                    </div>
+                    <div class="feature-large-image">
+                        <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 32px;">
+                            📱 App Mobile
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <h2 style="margin: 0; font-size: 24px;">Pierre Finance</h2>
+                    </div>
+                    <p class="footer-description">
+                        Seu assistente de IA para finanças pessoais. Converse com o seu dinheiro.
+                    </p>
+                    <div class="footer-social">
+                        <div class="footer-social-icons">
+                            <a href="#" class="footer-social-icon">📱</a>
+                            <a href="#" class="footer-social-icon">💬</a>
+                            <a href="#" class="footer-social-icon">📧</a>
+                        </div>
+                        <div class="footer-divider"></div>
+                        <a href="#" class="footer-link">TERMOS DE USO</a>
+                        <a href="#" class="footer-link">DESENVOLVEDORES</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom"></div>
+            <div class="footer-copyright">
+                <p class="footer-copyright-text">
+                    © 2025 Pierre - Assistente de IA Financeiro. Todos os direitos reservados.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Add animation classes when elements come into view
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0) scale(1)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('.animate-fade-in-up, .animate-fade-in-scale');
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px) scale(0.95)';
+                el.style.transition = 'all 0.6s ease-out';
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

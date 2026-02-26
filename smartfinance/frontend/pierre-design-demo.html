@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pierre Design System - Teste UI/UX</title>
+    <style>
+        /* Pierre Finance Design System */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --pierre: #9BFD53;
+            --primary: #000;
+            --primary-foreground: #fff;
+            --card-bg: rgba(244, 244, 245, 1);
+            --card-dark: rgba(26, 26, 26, 1);
+            --text-muted: rgba(156, 163, 175, 1);
+        }
+
+        body {
+            font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #000;
+            background: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .dark {
+            color: #fff;
+            background: #000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            padding: 24px 20px;
+            backdrop-filter: blur(8px);
+        }
+
+        .navbar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            padding: 12px 24px;
+            backdrop-filter: blur(8px);
+        }
+
+        .dark .navbar-content {
+            border-color: rgba(156, 163, 175, 0.6);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-weight: 500;
+            border-radius: 50px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+            height: 48px;
+            padding: 0 24px;
+        }
+
+        .btn-primary {
+            background: var(--pierre);
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: inherit;
+            border: 1px solid rgba(156, 163, 175, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(156, 163, 175, 0.1);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 150px 20px 80px;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-weight: bold;
+            font-size: clamp(32px, 8vw, 76px);
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(16px, 4vw, 24px);
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 32px;
+            transition: all 0.3s ease;
+        }
+
+        .dark .card {
+            background: var(--card-dark);
+            border: 1px solid rgba(42, 42, 42, 1);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Pricing */
+        .pricing-section {
+            padding: 96px 20px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-top: 48px;
+        }
+
+        .pricing-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card.popular {
+            border: 2px solid var(--pierre);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--pierre);
+            color: #000;
+            padding: 8px 20px;
+            border-bottom-left-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .pricing-header {
+            margin-bottom: 24px;
+        }
+
+        .pricing-category {
+            color: var(--text-muted);
+            font-size: 14px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .pricing-price {
+            font-weight: bold;
+            font-size: 48px;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .pricing-description {
+            color: var(--text-muted);
+            font-size: 14px;
+            min-height: 40px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin: 24px 0;
+        }
+
+        .pricing-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        .pricing-features li::before {
+            content: "✓";
+            color: var(--pierre);
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        /* Features */
+        .features-section {
+            padding: 96px 20px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 32px;
+            margin-top: 48px;
+        }
+
+        .feature-card {
+            min-height: 500px;
+            border-radius: 24px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .feature-card-light {
+            background: rgba(250, 250, 250, 1);
+            border: 1px solid rgba(229, 231, 235, 1);
+        }
+
+        .dark .feature-card-light {
+            background: rgba(26, 26, 26, 1);
+            border: 1px solid rgba(42, 42, 42, 1);
+        }
+
+        .feature-card-dark {
+            background: rgba(63, 63, 70, 1);
+            color: #fff;
+        }
+
+        .dark .feature-card-dark {
+            background: rgba(255, 255, 255, 1);
+            color: #000;
+        }
+
+        .feature-card-header {
+            padding: 24px;
+            min-height: 120px;
+        }
+
+        .feature-card-title {
+            font-weight: bold;
+            font-size: 24px;
+            line-height: 1.4;
+        }
+
+        .feature-card-content {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .feature-card-content.gradient-2 {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        /* Large Feature */
+        .large-feature {
+            padding: 96px 20px;
+        }
+
+        .large-feature-card {
+            background: var(--pierre);
+            border-radius: 24px;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .large-feature-content {
+            flex: 1;
+            padding: 40px;
+        }
+
+        .large-feature-title {
+            font-weight: bold;
+            font-size: clamp(32px, 6vw, 64px);
+            line-height: 1.1;
+            color: #000;
+            margin-bottom: 24px;
+        }
+
+        .large-feature-cta {
+            font-weight: bold;
+            font-size: 24px;
+            color: #245600;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .large-feature-image {
+            flex: 1;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 96px 20px;
+            border-top: 1px solid rgba(156, 163, 175, 0.3);
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        .footer-brand {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 16px;
+        }
+
+        .footer-description {
+            color: var(--text-muted);
+            margin-bottom: 32px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .footer-link:hover {
+            opacity: 0.8;
+        }
+
+        .footer-copyright {
+            color: var(--text-muted);
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--pierre);
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .large-feature-card {
+                flex-direction: column;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="navbar-brand">
+                <strong>Pierre Finance</strong>
+            </div>
+            <div style="display: flex; gap: 16px; align-items: center;">
+                <button class="btn btn-secondary">Baixar APP</button>
+                <button class="btn btn-primary">Crie uma conta</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="hero-title fade-in">
+                Assistente de IA para<br>
+                finanças pessoais
+            </h1>
+            <p class="hero-subtitle fade-in">
+                Chegou o Pierre: a IA que entende, conversa e te ajuda a planejar e economizar
+            </p>
+            <button class="btn btn-primary fade-in" style="font-size: 18px; height: 56px; padding: 0 32px;">
+                Comece Grátis
+            </button>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 48px;">
+                <h2 style="font-size: clamp(32px, 6vw, 48px); font-weight: bold; margin-bottom: 16px;" class="fade-in">
+                    Escolha seu<br>Plano Pierre
+                </h2>
+                <p style="color: var(--text-muted); font-size: 18px;" class="fade-in">
+                    Selecione o plano perfeito para organizar suas finanças com Pierre
+                </p>
+            </div>
+
+            <div class="pricing-grid">
+                <!-- Plano Básico -->
+                <div class="card pricing-card fade-in">
+                    <div class="pricing-header">
+                        <p class="pricing-category">Pierre Básico</p>
+                        <div class="pricing-price">Grátis</div>
+                        <p class="pricing-description">
+                            Para democratizar o acesso ao Open Finance
+                        </p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Análise avançada com IA</li>
+                        <li>Integração com apenas 1 banco simultâneo</li>
+                        <li>Limite de conversas</li>
+                        <li>Converse no WhatsApp</li>
+                    </ul>
+                    <button class="btn btn-secondary" style="width: 100%;">
+                        Começar agora
+                    </button>
+                </div>
+
+                <!-- Plano Pro -->
+                <div class="card pricing-card popular fade-in">
+                    <div class="pricing-badge">Mais Popular</div>
+                    <div class="pricing-header">
+                        <p class="pricing-category">Pierre Pro</p>
+                        <div style="display: flex; align-items: baseline; gap: 8px;">
+                            <span class="pricing-price">R$ 39</span>
+                            <span style="color: var(--text-muted); font-size: 18px;">/mês</span>
+                        </div>
+                        <p class="pricing-description">
+                            Conecte até 5 bancos e tenha controle avançado das suas finanças
+                        </p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Conecte até 5 bancos</li>
+                        <li>Conversas ilimitadas</li>
+                        <li>Alertas inteligentes</li>
+                        <li>Lembretes de pagamentos</li>
+                        <li>Relatórios exclusivos e personalizados</li>
+                    </ul>
+                    <button class="btn btn-primary" style="width: 100%;">
+                        Seja pro
+                    </button>
+                </div>
+
+                <!-- Plano Premium -->
+                <div class="card pricing-card fade-in">
+                    <div class="pricing-header">
+                        <p class="pricing-category">Pierre Premium</p>
+                        <div style="display: flex; align-items: baseline; gap: 8px;">
+                            <span class="pricing-price">R$ 199</span>
+                            <span style="color: var(--text-muted); font-size: 18px;">/mês</span>
+                        </div>
+                        <p class="pricing-description">
+                            Conecte bancos ilimitados e tenha visão completa das suas finanças
+                        </p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Tudo do Pro</li>
+                        <li>Conecte bancos ilimitados</li>
+                        <li>Acesso prioritário a novidades do App</li>
+                        <li>Ainda mais alertas inteligentes</li>
+                        <li>Maior limite de lembretes de pagamentos</li>
+                    </ul>
+                    <button class="btn btn-primary" style="width: 100%;">
+                        Assine o Premium
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <div class="features-grid">
+                <!-- Feature 1 -->
+                <div class="feature-card feature-card-light fade-in">
+                    <div class="feature-card-header">
+                        <h3 class="feature-card-title">
+                            O jeito mais simples de entender pra onde seu dinheiro vai
+                        </h3>
+                    </div>
+                    <div class="feature-card-content">
+                        📊 Dashboard
+                    </div>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="feature-card feature-card-dark fade-in">
+                    <div class="feature-card-header">
+                        <h3 class="feature-card-title">
+                            Receba insights reais sobre suas finanças
+                        </h3>
+                    </div>
+                    <div class="feature-card-content gradient-2">
+                        🤖 IA Insights
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Large Feature -->
+    <section class="large-feature">
+        <div class="container">
+            <div class="large-feature-card fade-in">
+                <div class="large-feature-content">
+                    <h2 class="large-feature-title">
+                        Seu consultor financeiro no seu bolso
+                    </h2>
+                    <button class="large-feature-cta">
+                        Comece a usar agora →
+                    </button>
+                </div>
+                <div class="large-feature-image">
+                    📱 App Mobile
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">Pierre Finance</div>
+                <p class="footer-description">
+                    Seu assistente de IA para finanças pessoais. Converse com o seu dinheiro.
+                </p>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Termos de Uso</a>
+                    <a href="#" class="footer-link">Desenvolvedores</a>
+                    <a href="#" class="footer-link">Suporte</a>
+                </div>
+                <p class="footer-copyright">
+                    © 2025 Pierre - Assistente de IA Financeiro. Todos os direitos reservados.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+
+    <script>
+        // Theme Toggle
+        function toggleTheme() {
+            document.body.classList.toggle('dark');
+        }
+
+        // Scroll Animations
+        function handleScrollAnimations() {
+            const elements = document.querySelectorAll('.fade-in');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // Initialize
+        window.addEventListener('scroll', handleScrollAnimations);
+        window.addEventListener('load', handleScrollAnimations);
+        
+        // Initial animation trigger
+        setTimeout(handleScrollAnimations, 100);
+    </script>
+</body>
+</html>

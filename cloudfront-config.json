@@ -1,0 +1,41 @@
+{
+  "CallerReference": "smartfinance-2026",
+  "Comment": "SmartFinance CDN",
+  "Enabled": true,
+  "Origins": {
+    "Quantity": 1,
+    "Items": [
+      {
+        "Id": "S3-smartfinance",
+        "DomainName": "smartfinance.sstechnologies-cloud.com.s3.us-east-1.amazonaws.com",
+        "OriginAccessControlId": "E3M66MFL48LX44",
+        "S3OriginConfig": {
+          "OriginAccessIdentity": ""
+        }
+      }
+    ]
+  },
+  "DefaultRootObject": "index.html",
+  "DefaultCacheBehavior": {
+    "TargetOriginId": "S3-smartfinance",
+    "ViewerProtocolPolicy": "redirect-to-https",
+    "AllowedMethods": {
+      "Quantity": 2,
+      "Items": ["GET", "HEAD"]
+    },
+    "Compress": true,
+    "ForwardedValues": {
+      "QueryString": false,
+      "Cookies": {"Forward": "none"}
+    },
+    "MinTTL": 0,
+    "TrustedSigners": {
+      "Enabled": false,
+      "Quantity": 0
+    }
+  },
+  "Aliases": {
+    "Quantity": 1,
+    "Items": ["smartfinance.sstechnologies-cloud.com"]
+  }
+}

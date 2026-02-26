@@ -6,6 +6,22 @@ Uma aplicação web moderna e intuitiva para controle financeiro pessoal, desenv
 
 **Site em produção:** [financaspessoais.sstechnologies-cloud.com](http://financaspessoais.sstechnologies-cloud.com)
 
+## 🆕 NOVO: SmartFinance - Assistente Financeiro IA
+
+**🤖 Versão com Inteligência Artificial em desenvolvimento!**
+
+- 🏦 **Open Finance Real** - Integração com 67 bancos via Pluggy
+- 🧠 **Análise IA** - Google Gemini para insights automáticos
+- 🔐 **Autenticação** - Sistema JWT completo
+- 📊 **Dashboard Avançado** - React + TypeScript
+- 💾 **MongoDB Atlas** - Armazenamento em nuvem
+
+**Status:** ✅ Backend funcionando | ✅ Frontend MVP | ✅ Pluggy integrado
+
+📁 **Localização:** `./smartfinance/` (pasta do projeto IA)
+
+---
+
 ## 📋 Sobre o Projeto
 
 O **Controle de Gastos Sergio Sena** é uma aplicação web completa para gerenciamento de finanças pessoais que permite:

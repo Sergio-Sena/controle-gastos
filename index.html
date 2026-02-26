@@ -23,6 +23,7 @@
             <button class="tab-btn active" onclick="showTab('dashboard')">Dashboard</button>
             <button class="tab-btn" onclick="showTab('lancamentos')">Lançamentos</button>
             <button class="tab-btn" onclick="showTab('dividas')">Dívidas</button>
+            <button class="tab-btn" onclick="showTab('consultor')">Consultor IA</button>
             <button class="tab-btn" onclick="showTab('calculadora')">Calculadora</button>
         </nav>
 
@@ -111,23 +112,13 @@
                     <div class="form-group" id="categoria-group" style="display:none">
                         <label for="categoria">Categoria:</label>
                         <select id="categoria">
-                            <option value="alimentacao">🍽️ Alimentação</option>
-                            <option value="transporte">🚗 Transporte</option>
-                            <option value="casa">🏠 Casa</option>
-                            <option value="saude">💊 Saúde</option>
-                            <option value="lazer">🎮 Lazer</option>
-                            <option value="roupas">👕 Roupas</option>
-                            <option value="internet">🌐 Internet/Fibra</option>
-                            <option value="telefone">📱 Telefone Móvel</option>
-                            <option value="cartao">💳 Cartão de Crédito</option>
-                            <option value="estudos">📚 Estudos</option>
-                            <option value="outros">📦 Outros</option>
+                            <!-- Categorias serão preenchidas dinamicamente -->
                         </select>
                     </div>
                     <div class="form-group" id="recorrente-group" style="display:none">
                         <label>
                             <input type="checkbox" id="recorrente"> 
-                            🔄 Despesa Recorrente (mensal)
+                            🔄 Recorrente (mensal)
                         </label>
                     </div>
                     <div class="form-group">
@@ -306,6 +297,53 @@
                 <div id="tabela-dividas" class="dividas-table">
                     <p class="empty-state">Nenhuma dívida cadastrada</p>
                 </div>
+            </div>
+        </div>
+
+        <!-- Consultor IA Tab -->
+        <div id="consultor" class="tab-content">
+            <div class="card" style="margin-bottom: 20px; background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);">
+                <h3>🤖 Consultor Financeiro IA</h3>
+                <p>Receba um plano personalizado para organizar suas finanças e sair do vermelho em 3 meses!</p>
+                
+                <div class="consultor-options" style="display: flex; gap: 15px; margin-top: 20px;">
+                    <button onclick="mostrarLancamentoManual()" class="btn-primary">📝 Lançar Dados Manualmente</button>
+                    <button onclick="gerarConsultoriaAutomatica()" class="btn-primary">🤖 Usar Dados do Sistema</button>
+                </div>
+            </div>
+
+            <!-- Lançamento Manual -->
+            <div id="lancamento-manual" class="card" style="display: none;">
+                <h3>📝 Informe seus Dados Financeiros</h3>
+                <form id="form-consultoria">
+                    <div class="form-group">
+                        <label for="renda-mensal">Renda Mensal Total:</label>
+                        <input type="number" id="renda-mensal" step="0.01" placeholder="Ex: 4500.00" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Dívidas (uma por linha - você pode lançar várias de uma vez):</label>
+                        <textarea id="dividas-texto" rows="4" placeholder="Exemplo (cada dívida em uma linha):\nCartão Nubank - R$ 2500\nEmpréstimo Banco - R$ 15000\nFinanciamento Carro - R$ 25000" style="width: 100%; padding: 10px; border-radius: 5px; background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.3);"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Despesas Fixas (uma por linha - você pode lançar várias de uma vez):</label>
+                        <textarea id="despesas-fixas" rows="4" placeholder="Exemplo (cada despesa em uma linha):\nAluguel - R$ 1200\nTransporte - R$ 300\nAlimentação - R$ 800\nContas Básicas - R$ 400" style="width: 100%; padding: 10px; border-radius: 5px; background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.3);"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Despesas Variáveis (uma por linha - você pode lançar várias de uma vez):</label>
+                        <textarea id="despesas-variaveis" rows="4" placeholder="Exemplo (cada despesa em uma linha):\nLazer - R$ 600\nCompras - R$ 400\nGastos Extras - R$ 300" style="width: 100%; padding: 10px; border-radius: 5px; background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.3);"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary" style="width: 100%;">🎯 Gerar Plano de Ação</button>
+                </form>
+            </div>
+
+            <!-- Resultado da Consultoria -->
+            <div id="resultado-consultoria" class="card" style="display: none;">
+                <h3>🎯 Seu Plano de Ação Personalizado</h3>
+                <div id="plano-acao"></div>
             </div>
         </div>
 

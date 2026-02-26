@@ -625,3 +625,57 @@ header h1 {
         transform: translateY(0);
     }
 }
+/* Estilos para Consultor IA */
+.consultor-options {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.consultor-options button {
+    flex: 1;
+    min-width: 200px;
+}
+
+#form-consultoria textarea {
+    resize: vertical;
+    font-family: inherit;
+}
+
+#form-consultoria textarea::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.diagnostico h4,
+.situacao h4,
+.cortes h4,
+.renegociacao h4,
+.plano-mensal h4 {
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.plano-mensal h5 {
+    margin-bottom: 10px;
+    color: #00d4ff;
+    font-size: 14px;
+}
+
+.diagnostico p,
+.situacao p,
+.cortes p,
+.renegociacao p,
+.plano-mensal p {
+    margin: 8px 0;
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    .consultor-options {
+        flex-direction: column;
+    }
+    
+    .consultor-options button {
+        min-width: auto;
+    }
+}
